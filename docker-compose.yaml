@@ -38,7 +38,7 @@ services:
     volumes:
       - ./:/app/
     env_file: .env
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: "python manage.py runserver 0.0.0.0:8000"
   # celeryworker:
   #   <<: *django
   #   image: suport_celeryworker

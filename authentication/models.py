@@ -24,7 +24,7 @@ class User(AbstractUser, PermissionsMixin):
     """User model"""
 
     username = models.CharField(max_length=255, null=True, blank=True, unique=True)
-    email = models.EmailField(db_index=True, unique=True, null=True, blank=True)
+    email = models.EmailField(db_index=True, unique=True, null=False, blank=False)
     role = models.ForeignKey(Role, on_delete=DO_NOTHING, default=Role.CUSTOMER)
 
     created_at = models.DateTimeField(auto_now_add=True)

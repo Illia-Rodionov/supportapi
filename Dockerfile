@@ -13,4 +13,4 @@ RUN pip install --upgrade pip \
     && pipenv install --dev --system --deploy --ignore-pipfile
 
 CMD python manage.py migrate --noinput \ 
-    # && python manage.py runserver 0.0.0.0:8000
+    && python manage.py runserver 0.0.0.0:8000

@@ -1,11 +1,16 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
+from authentication.views import (
+    UserCrateViews,
+    UserDeleteViews,
+    UserDetailViews,
+    UserUpdateViews,
+)
 
-from authentication.views import UserViewSet
-
-router = routers.SimpleRouter()
-router.register(r"user", UserViewSet)
+app_name = "authtentication"
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("usercreate/", UserCrateViews.as_view(), name="create_user"),
+    path("userupdate/<int:pk>/", UserUpdateViews.as_view(), name="update_user"),
+    path("userdetail/<int:pk>/", UserDetailViews.as_view(), name="detail_user"),
+    path("userdelete/<int:pk>/", UserDeleteViews.as_view(), name="delete_user"),
 ]
