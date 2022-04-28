@@ -4,7 +4,6 @@ import pytest
 
 from authentication.models import User
 from authentication.serializers import UserCreateUpdateSerializer
-from authentication.test.conftest import test_password, test_username
 
 
 pytestmark = pytest.mark.django_db
@@ -17,7 +16,6 @@ def test_user_create_invalid(client, create_user_url):
     assert response.status_code == 400
 
 
-@pytest.mark.django_db
 def test_user_create(client, create_user_url):
     url = create_user_url
     payload = {

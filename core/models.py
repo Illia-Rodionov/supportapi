@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 from django.db.models.deletion import DO_NOTHING, SET_NULL, CASCADE
 
@@ -57,3 +58,11 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.theme
+
+
+class EmailQueue(models.Model):
+    email_queue = models.EmailField(unique=True, blank=False, null=False)
+    email_text = models.TextField()
+
+    def __str__(self):
+        return self.email_queue

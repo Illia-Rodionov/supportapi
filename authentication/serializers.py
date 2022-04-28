@@ -7,7 +7,7 @@ from authentication.models import User
 class UserCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("username", "email", "password")
+        fields = ("email", "password")
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -15,4 +15,4 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("username", "email", "role", "created_at")
+        fields = ("email", "role", "created_at")

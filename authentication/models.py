@@ -8,6 +8,7 @@ from authentication.managers import UserManager
 
 
 class Role(models.Model):
+    """User role model"""
 
     CUSTOMER = 1
     SUPPORT = 3
@@ -23,17 +24,18 @@ class Role(models.Model):
 class User(AbstractUser, PermissionsMixin):
     """User model"""
 
-    username = models.CharField(max_length=255, null=True, blank=True, unique=True)
-    email = models.EmailField(db_index=True, unique=True, null=False, blank=False)
+    email = models.EmailField(max_length=100, db_index=True, unique=True, null=False, blank=False)
     role = models.ForeignKey(Role, on_delete=DO_NOTHING, default=Role.CUSTOMER)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager()
 
-    USERNAME_FIELD = "username"
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def get_username(self):
-        return f"{self.username}"
+        return f"{self.email}"

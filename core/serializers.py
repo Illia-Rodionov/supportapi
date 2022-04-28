@@ -1,10 +1,12 @@
 from rest_framework import serializers
+
 from core.models import Answer, Ticket
+from authentication.serializers import UserDetailSerializer
 
 
 class AnswerSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(slug_field="username", read_only=True)
-    ticket = serializers.SlugRelatedField(slug_field="theme", read_only=True)
+    author = serializers.SlugRelatedField(slug_field="email", read_only=True)
+    ticket = serializers.SlugRelatedField(slug_field="theme", queryset=Ticket.objects.all())
 
     class Meta:
         model = Answer
@@ -13,7 +15,7 @@ class AnswerSerializer(serializers.ModelSerializer):
 
 class TicketSerializer(serializers.ModelSerializer):
     answers_to_tickets = AnswerSerializer(many=True, read_only=True)
-    reporter = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    reporter = serializers.SlugRelatedField(slug_field="email", read_only=True)
     status = serializers.CharField(read_only=True)
 
     class Meta:
@@ -35,7 +37,7 @@ class TicketSerializer(serializers.ModelSerializer):
 
 
 class TicketStatusUpdateSerializer(serializers.ModelSerializer):
-    reporter = serializers.CharField(read_only=True)
+    reporter = UserDetailSerializer(read_only=True)
     theme = serializers.CharField(read_only=True)
 
     class Meta:

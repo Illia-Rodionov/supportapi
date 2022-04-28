@@ -6,7 +6,7 @@ from authentication.views import (
     UserUpdateViews,
 )
 
-app_name = "authtentication"
+app_name = "authentication"
 
 urlpatterns = [
     path("usercreate/", UserCrateViews.as_view(), name="create_user"),

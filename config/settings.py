@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "core",
     "rest_framework",
     "rest_framework.authtoken",
+    'django_celery_beat.apps.BeatConfig',
 ]
 
 MIDDLEWARE = [
@@ -159,4 +160,14 @@ SIMPLE_JWT = {
     # "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 }
 
-CELRY_BROKER_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
+CELERY_BROKER_URL = "redis://redis:6379/"
+CELERY_RESULT_BACKEND = "redis://redis:6379/"
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'suportapitest@gmail.com'
+EMAIL_HOST_PASSWORD = 'gwjafjrpiiprgevd'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
