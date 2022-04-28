@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Berlin"
 
 USE_I18N = True
 
@@ -160,9 +160,9 @@ SIMPLE_JWT = {
     # "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 }
 
-CELERY_BROKER_URL = "redis://redis:6379/"
-CELERY_RESULT_BACKEND = "redis://redis:6379/"
-CELERY_TIMEZONE = 'UTC'
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+CELERY_TIMEZONE = 'Europe/Berlin'
 CELERY_ENABLE_UTC = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

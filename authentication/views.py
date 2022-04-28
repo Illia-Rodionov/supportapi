@@ -21,7 +21,7 @@ class UserUpdateViews(generics.RetrieveUpdateAPIView):
     serializer_class = UserCreateUpdateSerializer
 
     def get_queryset(self):
-        """Возвращать объект только для текущего аутентифицированного пользователя"""
+        """Return an object for the current authenticated user only"""
         return self.queryset.filter(username=self.request.user)
 
 
@@ -39,5 +39,5 @@ class UserDeleteViews(generics.RetrieveDestroyAPIView):
     serializer_class = UserDetailSerializer
 
     def get_queryset(self):
-        """Возвращать объект только для текущего аутентифицированного пользователя"""
+        """Return an object for the current authenticated user only"""
         return self.queryset.filter(username=self.request.user)

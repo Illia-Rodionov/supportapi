@@ -23,7 +23,7 @@ class Role(models.Model):
 
 class User(AbstractUser, PermissionsMixin):
     """User model"""
-
+    username = models.CharField(max_length=100, null=True, blank=True, unique=True)
     email = models.EmailField(max_length=100, db_index=True, unique=True, null=False, blank=False)
     role = models.ForeignKey(Role, on_delete=DO_NOTHING, default=Role.CUSTOMER)
     is_staff = models.BooleanField(default=False)

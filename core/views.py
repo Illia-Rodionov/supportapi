@@ -17,14 +17,14 @@ class TicketViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
-        """Return an object for the current authenticated user only"""
-        return self.queryset.filter(reporter=self.request.user)
+         """Return an object for the current authenticated user only"""
+         return self.queryset.filter(reporter=self.request.user)
 
 
 class TicketStatusUpdate(generics.RetrieveUpdateAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketStatusUpdateSerializer
-    # permission_classes = [IsSupport, IsAuthenticated]
+    permission_classes = [IsSupport, IsAuthenticated]
 
     def put(self, request, *args, **kwargs):
         email_template = "Your ticket has an updated ticket!"
@@ -34,8 +34,8 @@ class TicketStatusUpdate(generics.RetrieveUpdateAPIView):
             email_text=email_template,
         )
         email.save()
-        status_send_info.delay(email.email_queue, email.email_text)
-        # email.delete()
+        status_send_info.apply_async((email.email_queue, email.email_text))
+        email.delete()
         return self.update(request, *args, **kwargs)
 
 

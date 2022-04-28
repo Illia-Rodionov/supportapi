@@ -40,27 +40,15 @@ services:
     env_file: .env
     command: "python manage.py runserver 0.0.0.0:8000"
 
-  celery_beat:
-    command: sh -c "celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
-    container_name: celery_beat
-    depends_on:
-      - django
-      - postgres
-      - redis
-    hostname: celery_beat
-    image: suport_django
-    restart: on-failure
-
   celeryworker:
     depends_on:
       - django
       - postgres
       - redis
-      - celery_beat
     image: suport_django
     container_name: suport_celeryworker
     environment:
       - DEBUG=1
       - CELERY_BROKER_URL=redis://redis:6379
       - CELERY_BACKEND=redis://redis:6379
-    command: sh -c "celery worker -l info"
+    command: sh -c "celery -A config worker -l info"
