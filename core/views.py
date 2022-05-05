@@ -14,7 +14,7 @@ from core.tasks import status_send_info
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_queryset(self):
          """Return an object for the current authenticated user only"""
@@ -24,7 +24,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 class TicketStatusUpdate(generics.RetrieveUpdateAPIView):
     queryset = Ticket.objects.all()
     serializer_class = TicketStatusUpdateSerializer
-    permission_classes = [IsSupport, IsAuthenticated]
+    permission_classes = (IsSupport, IsAuthenticated,)
 
     def put(self, request, *args, **kwargs):
         email_template = "Your ticket has an updated ticket!"
@@ -42,4 +42,4 @@ class TicketStatusUpdate(generics.RetrieveUpdateAPIView):
 class AnswerViewSet(viewsets.ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = (IsAuthenticatedOrReadOnly,)
